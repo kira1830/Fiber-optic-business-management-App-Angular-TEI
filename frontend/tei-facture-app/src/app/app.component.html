@@ -1,0 +1,9 @@
+<app-main-nav >
+<mat-spinner style="width: 20%;margin-right: auto;margin-left: auto;" *ngIf="showSpiner"></mat-spinner>
+<router-outlet (activate)='onActivateContent()'></router-outlet>
+</app-main-nav>
+
+
+<router-outlet  name="reports"  (activate)='onActivateReport()'></router-outlet>
+
+

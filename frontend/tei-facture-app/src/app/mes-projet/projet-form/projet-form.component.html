@@ -1,0 +1,114 @@
+<mat-toolbar>
+    <a mat-raised-button
+    style=
+    "text-decoration: none;
+     color:black;
+     height: 80%;
+     background-color: rgb(124, 124, 124);
+     padding: 0;
+     font-size: small;
+    " [routerLink]="[ '/MesProjet']">
+    <img style="height: 80%; border-radius: 10px;"  src="../../../../assets/menu_icone/exit.png" alt="exit"> 
+    </a>
+    <span id="detaill-sosciet">Projet pour : {{selected_client?.Nom_societe}}</span>
+</mat-toolbar>
+<main>
+    <div id="container">
+        <form  #projetForm="ngForm">
+    <!---Societe ---------------------------->
+        <mat-card class="societe-card">
+            <mat-card-title>Notre client</mat-card-title>
+
+            <mat-form-field  class="example-full-width" appearance="outline">
+                <mat-label>selectione un client</mat-label>
+                <select  matNativeControl required   name="unite" [(ngModel)]="selected_client"  required>
+                  <option *ngFor="let client of list_client"  [ngValue]="client">{{client.Nom_societe}}</option>
+                </select>
+              </mat-form-field>
+           
+              <button style="margin: 5px 0;" mat-raised-button class="btn btn-outline-primary" (click)="ajouteClient()">
+                <mat-icon>add</mat-icon>Ajoute
+            </button>
+        </mat-card>
+         <!---Projet ---------------------------->
+       
+        <mat-card class="projet-card">
+            <mat-card-title>Detaill de projet</mat-card-title>
+
+            <label for="nom_projet">Nom de projet</label>
+            <mat-form-field style="width: 100%;" appearance="outline" >
+                <mat-label>Nom de projet</mat-label>
+                <input ngModel name="nom_projet" matInput type="text" placeholder="Nom de projet" required>
+                <mat-icon matSuffix>add</mat-icon>
+            </mat-form-field>
+            
+
+
+            <section> 
+                <div class="form-group half-input one">
+                    <label for="NBNC" >N° Bon de commande</label>
+                <mat-form-field appearance="outline" >
+                    <mat-label>N° BNC</mat-label>
+                    <input ngModel name="NBNC" matInput type="text" placeholder="N° Bon de cammande" required>
+                    <mat-icon matSuffix>add</mat-icon>
+                </mat-form-field>
+                </div>
+                
+                <div class="form-group half-input two">
+                    <label for="NODS" >N° ODS</label>
+                <mat-form-field appearance="outline" >
+                    <mat-label>N° ODS</mat-label>
+                    <input ngModel name="NODS" matInput type="text" placeholder="N° ODS s'il exist" >
+                    <mat-icon matSuffix>add</mat-icon>
+                </mat-form-field>
+                </div>
+            <div style="clear: both;"></div>
+            </section>
+            <section>
+                <div class="form-group half-input one">
+                    <label for="date_debut" >Date BC</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>choisire une date</mat-label>
+                        <input ngModel name="datePicker" matInput [matDatepicker]="picker" required >
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="form-group half-input two">
+                    <label for="date_debut" >Date ODS</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>choisire une date</mat-label>
+                        <input ngModel name="dateOds" matInput [matDatepicker]="picker2"  >
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                  </div>
+
+                  <div class="form-group half-input one">
+                    <label for="delais">Delais</label>
+                    <mat-form-field appearance="outline" >
+                        <mat-label>Font size</mat-label>
+                        <input ngModel name="delais" matInput type="number" placeholder="Delais de projet" #fontSizeControl min="1" required>
+                        <span matSuffix>joure</span>
+                    </mat-form-field>
+                  </div>
+                  <div style="clear: both;"></div>
+                
+              <mat-form-field style="width: 100%;" appearance="outline" >
+                    <mat-label>Zone de travail</mat-label>
+                    <input ngModel name="adress" matInput type="text" placeholder="Adresse de projet" required>
+                    <mat-icon matSuffix>add</mat-icon>
+                </mat-form-field>
+                
+                <mat-form-field class="example-full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea ngModel name="description" matInput placeholder="decrir votre projet"></textarea>
+                  </mat-form-field>
+            </section>
+       
+        </mat-card>
+        <button  mat-raised-button color="primary" (click)="OnCreateProject(projetForm)">Create</button>
+    </form>
+    </div>
+</main>

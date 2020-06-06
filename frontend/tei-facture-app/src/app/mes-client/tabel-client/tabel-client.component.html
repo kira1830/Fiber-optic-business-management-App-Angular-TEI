@@ -1,0 +1,62 @@
+<mat-form-field>
+    <mat-label>Cherche un client</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+  </mat-form-field>
+
+  
+  <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z8">
+  
+    <!-- nom societe -->
+    <ng-container matColumnDef="Nom_societe">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> societe </th>
+      <td  mat-cell *matCellDef="let element"><a mat-flat-button [routerLink]="[ '/MesProjet/client/',element.id_societe]">{{element.Nom_societe}}</a>  </td>
+    </ng-container>
+  
+    <!-- Name N_Rx -->
+    <ng-container matColumnDef="N_RC">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> N_RC </th>
+      <td mat-cell *matCellDef="let element"> {{element.N_RC}} </td>
+    </ng-container>
+  
+    
+      <!-- Symbol adress -->
+      <ng-container matColumnDef="adress">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> adress </th>
+        <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+      </ng-container>
+
+    <!-- tel  -->
+    <ng-container matColumnDef="tel">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Tel </th>
+        <td mat-cell *matCellDef="let element"> {{element.tel}} </td>
+      </ng-container>
+
+      <!-- fax -->
+    <ng-container matColumnDef="fax">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Fax </th>
+        <td mat-cell *matCellDef="let element"> {{element.fax}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="option">
+        <th mat-header-cell *matHeaderCellDef > Option </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button mat-fab color="primary" (click)="deleteClient(element.id_societe)" aria-label="Example icon button with a delete icon">
+                <mat-icon>delete</mat-icon>
+              </button>    
+        </td>
+      </ng-container>
+  
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10,25, 50, 100, 250]">
+  </mat-paginator>
+</div>

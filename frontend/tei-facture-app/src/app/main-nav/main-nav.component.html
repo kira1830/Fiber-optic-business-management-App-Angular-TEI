@@ -1,0 +1,41 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav class="no-print" #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === true">
+    <mat-toolbar class="menueToolbar no-print">
+      <a [routerLink]="[ '/home' ]">
+        <img style="margin-left: 0;" src="../../assets/logo.png" alt="TEi logo" height="80px" width="150px">
+      </a>
+      </mat-toolbar>
+  
+
+       <mat-nav-list>
+      <a class="items no-print" mat-list-item routerLink="/MesProjet"><img class="menu-icone" src="../../assets/menu_icone/projet.png" alt="icone projet" height="50px">Mes projet </a>
+      <a class="items no-print" mat-list-item routerLink="/MesClient"><img class="menu-icone" src="../../assets/menu_icone/client.png" alt="icone projet" height="50px">Mes Client </a>
+      <a class="items no-print" mat-list-item routerLink="/MesProduit"><img class="menu-icone" src="../../assets/menu_icone/produit.png" alt="icone projet" height="50px">Mes produit </a>
+      <a class="items no-print" mat-list-item routerLink="/Comptabilite"><img class="menu-icone" src="../../assets/menu_icone/ccomptabilite.png" alt="icone projet" height="50px">Comptabilite </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  
+  <mat-sidenav-content>
+    <mat-toolbar class="mainToolBar no-print" color="#0597DF" >
+      <button 
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        >
+        <!--*ngIf="isHandset$ | async"-->
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Telephonie electrotech
+        <a routerLink="setting" style="right: 0px;padding: 0;"> 
+          <img height="65px"  src="../../assets/menu_icone/setting.png" alt="setting">
+        </a> 
+      </span>
+   
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

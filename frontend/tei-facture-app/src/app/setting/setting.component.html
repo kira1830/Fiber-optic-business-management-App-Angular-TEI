@@ -1,0 +1,53 @@
+<mat-card class="myInfo">
+   <form  #MesInfoForm="ngForm" >
+   
+    <mat-form-field appearance="outline">
+        <mat-label>Siege social</mat-label>
+        <input matInput placeholder="Ex. siege" name="Siege_social" [(ngModel)]="mesInfo.Siege_social" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>RC</mat-label>
+        <input matInput placeholder="Ex. rc" name="RC" [(ngModel)]="mesInfo.RC" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nif</mat-label>
+        <input matInput placeholder="Ex. rc" name="Nif" [(ngModel)]="mesInfo.Nif" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>AI</mat-label>
+        <input matInput placeholder="Ex. rc" name="AI" [(ngModel)]="mesInfo.AI" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>DO.BANCAIRE</mat-label>
+        <input matInput placeholder="Ex. rc" name="DO_BANCAIRE" [(ngModel)]="mesInfo.DO_BANCAIRE" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tel</mat-label>
+        <input matInput placeholder="Ex. rc" name="tel" [(ngModel)]="mesInfo.tel" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+   
+      <mat-form-field appearance="outline">
+        <mat-label>Fax</mat-label>
+        <input matInput placeholder="Ex. rc" name="fax" [(ngModel)]="mesInfo.fax" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Ex. rc" name="email" [(ngModel)]="mesInfo.email" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+      <button (click)="valide(MesInfoForm)" mat-raised-button color="accent">VALIDE</button>
+   </form>
+</mat-card>

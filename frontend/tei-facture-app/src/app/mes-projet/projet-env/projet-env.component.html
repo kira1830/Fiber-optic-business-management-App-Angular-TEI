@@ -1,0 +1,478 @@
+
+<header >
+    <mat-card class="container title-card" >
+      <a mat-raised-button  [routerLink]="[ '/MesProjet']">
+    <img style="height: 50px; border-radius: 10px;"  src="../../../../assets/menu_icone/exit.png" alt="exit"> 
+    </a>
+        <h3 class="title">Projet :{{projet?.Designation}} </h3>
+        <h5 class="title">BNC N°     :{{projet?.N_BNC}} </h5>
+        
+      <div style="text-align: center;">
+        <mat-button-toggle-group name="factureGenBtn" >
+          <mat-button-toggle *ngIf="facture_exist" [routerLink]="['/MesProjet/projet/facture/',projet.id_projet]">GO-facture</mat-button-toggle>
+          <mat-button-toggle (click)="goProforma()" >GO-proforma</mat-button-toggle>
+          <mat-button-toggle [routerLink]="[ '/MesProjet/projet/dotation/',projet.id_projet]" >Genere-Dotation</mat-button-toggle>
+          <mat-button-toggle [routerLink]="[ '/MesProjet/projet/constatation',projet.id_projet]" >Genere-Constatation</mat-button-toggle>
+          <mat-button-toggle [routerLink]="[ '/MesProjet/projet/reversement',projet.id_projet]" >Genere-Reversement</mat-button-toggle>
+          <mat-button-toggle [routerLink]="[ '/MesProjet/projet/reintegration',projet.id_projet]" >Genere-Reientegration</mat-button-toggle>
+        
+        </mat-button-toggle-group>
+      </div>
+         
+        
+
+    </mat-card>
+    
+    <mat-card class="container detail-card">
+        <img mat-card-image class="card-img" src="../../../assets/code-bar.png" alt="code bar">
+        <mat-slide-toggle (change)="disableEdit()" [(checked)]="isEdit" >modifie</mat-slide-toggle>    
+       <form #projetEditForm="ngForm">
+
+        <mat-form-field appearance="fill"  >
+          <mat-label>designation</mat-label>
+          <input name="designation" matInput [(ngModel)]="projet.Designation" [disabled]="!isEdit" required>
+          <mat-icon matSuffix>add</mat-icon>
+        </mat-form-field> 
+
+        <mat-form-field appearance="fill"  >
+          <mat-label>N°BNC</mat-label>
+          <input name="N_BNC" matInput [(ngModel)]="projet.N_BNC" [disabled]="!isEdit" required>
+          <mat-icon matSuffix>add</mat-icon>
+        </mat-form-field> 
+
+        <mat-form-field appearance="fill"  >
+          <mat-label>N°ODS</mat-label>
+          <input name="N_ODS" matInput [(ngModel)]="projet.N_ODS" [disabled]="!isEdit"  >
+          <mat-icon matSuffix>add</mat-icon>
+        </mat-form-field> 
+        
+        <mat-form-field appearance="fill">
+          <mat-label>adress</mat-label>
+          <input   name="adress" matInput [(ngModel)]="projet.adress" [disabled]="!isEdit" required>
+          <mat-icon matSuffix>add</mat-icon>
+        </mat-form-field> 
+
+            <mat-form-field appearance="fill"  >
+                <mat-label>Description</mat-label>
+                <input name="description" matInput [(ngModel)]="projet.Description" [disabled]="!isEdit">
+                <mat-icon matSuffix>add</mat-icon>
+              </mat-form-field> 
+
+
+
+              <mat-form-field appearance="fill">
+                <mat-label>Date BNC</mat-label>
+                <input  name="date_debut" matInput [(ngModel)]="projet.Date_debut" [disabled]="!isEdit" required>
+                <mat-icon matSuffix>add</mat-icon>
+              </mat-form-field> 
+
+              <mat-form-field appearance="fill">
+                <mat-label>Date ODS</mat-label>
+                <input   name="date_ODS" matInput [(ngModel)]="projet.Date_ODS" [disabled]="!isEdit">
+                <mat-icon matSuffix>add</mat-icon>
+              </mat-form-field> 
+
+              <mat-form-field appearance="fill">
+                <mat-label>Delais</mat-label>
+                <input  type="number" name="delais" matInput [(ngModel)]="projet.delais" [disabled]="!isEdit" required>
+                <mat-icon matSuffix>add</mat-icon>
+              </mat-form-field> 
+
+              <mat-form-field appearance="fill">
+                <mat-label>Date fin</mat-label>
+                <input   name="date_fin"  matInput [(ngModel)]="projet.Date_fin" [disabled]="!isEdit">
+                <mat-icon matSuffix>add</mat-icon>
+              </mat-form-field>
+              <button  mat-raised-button color="primary" (click)="editprojet(projetEditForm)" [disabled]="!isEdit">modifier</button>
+            </form> 
+            </mat-card>
+</header>
+
+
+
+<div class="product-tab">
+  <mat-tab-group (selectedTabChange)="OnTAbSelected($event)" style="position: sticky; top: 0;" >
+    <!----tach--------------------->
+    <mat-tab label="tachs demande"> 
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           Ajouter
+          </mat-panel-title>
+          <mat-panel-description>
+           ajoute des nouvels tach
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="search-div">
+          <section class="example-section">
+            <label class="example-margin">Choix de Borduro:</label><br>
+            <mat-radio-group [(ngModel)]="choixTach">
+              <mat-radio-button class="example-margin" [value]="false">From Borduro</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="true">New</mat-radio-button>
+            </mat-radio-group>
+          </section>
+
+          <!----tach form---->
+          <form  #tachForm="ngForm" >
+            
+            <mat-form-field style="width: 50%;"  appearance="outline" [hidden]="!choixTach">
+              <mat-label>code</mat-label>
+              <mat-checkbox name ="isBorduro" class="example-margin" [(ngModel)]="isBorduro">borduro</mat-checkbox>
+              <input [disabled]="!isBorduro"  name="id_tach" ngModel [(value)]="codeHint"  #id_tach matInput placeholder="code de tach" [required]="choixTach" >       
+            </mat-form-field>
+          
+            <mat-radio-group *ngIf="!choixTach" aria-label="Select an option" [(ngModel)]="choixRecherch" name="choix">
+              <mat-label style ="margin-right: 20px;">recherch avec</mat-label>
+              <mat-radio-button [value]="true" > code </mat-radio-button>
+              <mat-radio-button [value]="false" checked> designation</mat-radio-button>
+            </mat-radio-group>
+
+            <mat-form-field class="example-full-width"  *ngIf="!choixTach" appearance="outline">
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Number"
+                     matInput
+                     (keydown)="clearTachData()"
+                     name="designationB"
+                     [(value)]="tachChoisie.designation"
+                     [formControl]="myControl"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let tach of filteredOptions | async" [value]="tach" (onSelectionChange)="fillTachData($event.isUserInput,tach)" >
+                  {{tach.code}} | {{tach.designation}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field> 
+
+            
+
+
+              <mat-form-field appearance="outline" *ngIf="choixTach">
+                  <mat-label>Designation</mat-label>
+                  <input  name="designation" ngModel matInput placeholder="soudage" required >
+              </mat-form-field>
+              
+              
+                <mat-form-field appearance="outline">
+                  <mat-label>selectione une unite</mat-label>
+                  <select matNativeControl required  [disabled]="!choixTach"  name="unite" [(ngModel)]="tachChoisie.unite" >
+                    <option *ngFor="let unite of unites" [ngValue]="unite.unite">{{unite.unite}}</option>
+                  </select>
+                  <span matSuffix style="margin: auto;height: 100%;"> 
+                    <button   (click)="onAddUnite()"  mat-raised-button color="primary" >
+                      <mat-icon>add</mat-icon>
+                    </button></span>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" >
+                  <mat-label>prix unitair</mat-label>
+                  <input ngModel name="prix_u"  matInput type="number" required [value]="tachChoisie.prix_u"  [disabled]="!choixTach">
+                  <span matPrefix>DZA&nbsp;</span>
+                  <span matSuffix>.00</span>
+                </mat-form-field>
+               
+                <mat-form-field appearance="outline" >
+                  <mat-label>quantite</mat-label>
+                  <input type="number" ngModel name="quantite" ngModel matInput placeholder="2" required >
+                </mat-form-field>
+
+                <button (click)="onAddTach(tachForm)"  mat-raised-button color="primary" >add</button>
+          </form>
+      </div>
+        <!-------------fin form-->
+         </mat-expansion-panel>
+         <div style = "width : 100%" >
+          <h1 style="text-align: center;">Devie des prix </h1>
+         </div>
+        
+        <table name="table" class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">code</th>
+                <th scope="col">Designation</th>
+                <th scope="col">unite</th>
+                <th scope="col">prix u DZA</th>
+                <th scope="col">QT</th>
+                <th scope="col">Total</th>
+                <th scope="col">option</th>
+              </tr>
+            </thead>
+           
+            <tbody>
+              <tr *ngFor="let produit of mesTach;index as i;" >
+                <th (click)="select_to_modifierTach(produit)" scope="row">{{i+1}}</th>
+                <th (click)="select_to_modifierTach(produit)" scope="row">{{produit?.code}}</th>
+                <td (click)="select_to_modifierTach(produit)">{{produit?.designation}} </td>
+                <td (click)="select_to_modifierTach(produit)">{{produit?.unite}}</td>
+                <td (click)="select_to_modifierTach(produit)">{{produit?.prix_u.toFixed(2)}} </td>
+                <td (click)="select_to_modifierTach(produit)">{{produit.quantite}}</td>
+                <td (click)="select_to_modifierTach(produit)">{{(produit.quantite*produit.prix_u).toFixed(2)}}</td>
+                <td>
+                <button (click)="deleteTach(produit)" style="width:50px;height: 50px;" mat-raised-button color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button></td>
+                </tr>
+                <tr>
+                  <td colspan="6"><p class="center">TOTAL H.T</p></td>
+                  <td #totalHT>{{locationsSum().toFixed(2)}}</td>
+                  <td style="background-color: gray;"></td>
+                </tr>
+                <tr>
+                  <td colspan="6"><p class="center">TVA 19%</p></td>
+                  <td>{{(locationsSum()*parametre.tva).toFixed(2)}}</td>
+                  <td style="background-color: gray;"></td>
+                </tr>
+                <tr>
+                  <td colspan="6"><p class="center">Total T.T.C</p></td>
+                  <td>{{(locationsSum()*(1+parametre.tva)).toFixed(2)}}</td>
+                  <td style="background-color: gray;"></td>
+                </tr>
+            </tbody>
+          </table>
+          <mat-spinner style="width:20%;margin-left: auto;margin-right: auto;" *ngIf="tachSpiner" ></mat-spinner> 
+      
+    </mat-tab>
+    <!----charge--------------------->
+    <mat-tab label="charges"> 
+  <!--------expansion de form de charge ---------------------->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           Ajouter
+          </mat-panel-title>
+          <mat-panel-description>
+           ajoute des charge
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="search-div">
+         
+          <!----charge form---->
+          <form  #chargeForm="ngForm" >
+  
+              <mat-form-field appearance="outline">
+                  <mat-label>Designation</mat-label>
+                  <input  name="designation" ngModel matInput placeholder="soudage" required >
+              </mat-form-field>
+              
+                <mat-form-field appearance="outline">
+                  <mat-label>selectione une unite</mat-label>
+                  <select matNativeControl required   name="unite" ngModel  required>
+                    <option *ngFor="let unite of unites" [ngValue]="unite.unite">{{unite.unite}}</option>
+                  </select>
+                  <span matSuffix> 
+                    <button (click)="onAddUnite()"  mat-raised-button color="primary" >
+                      <mat-icon>add</mat-icon>
+                    </button></span>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" >
+                  <mat-label>prix unitair</mat-label>
+                  <input ngModel name="prix_u"  matInput type="number" required >
+                  <span matPrefix>DZA&nbsp;</span>
+                  <span matSuffix>.00</span>
+                </mat-form-field>
+               
+                <mat-form-field appearance="outline" >
+                  <mat-label>quantite</mat-label>
+                  <input ngModel name="quantite" ngModel matInput placeholder="2" required >
+                </mat-form-field>
+
+                <button (click)="onAddCharge(chargeForm)"  mat-raised-button color="primary" >add</button>
+          </form>
+      </div>
+        <!-------------fin form-->
+         </mat-expansion-panel>
+         <div style = "width : 100%" >
+          <h1 style="text-align: center;">Les charge du projet  </h1>
+         </div>
+         <!--------table des charge --------------------->
+         <table class="table  text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th class="text-center" scope="col">#</th>
+              <th class="text-center" scope="col">Designation</th>
+              <th class="text-center" scope="col">unite</th>
+              <th class="text-center" scope="col">prix u DZA</th>
+              <th class="text-center" scope="col">QT</th>
+              <th class="text-center" scope="col">Total</th>
+              <th class="text-center" scope="col">option</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let produit of mesCharge;index as i;" >
+              <th (click)="select_to_modifierCharge(produit)" scope="row">{{i+1}}</th>
+              <td (click)="select_to_modifierCharge(produit)">{{produit?.designation}} </td>
+              <td (click)="select_to_modifierCharge(produit)">{{produit?.unite}}</td>
+              <td (click)="select_to_modifierCharge(produit)">{{produit?.prix_u.toFixed(2)}} </td>
+              <td (click)="select_to_modifierCharge(produit)">{{produit.quantite}}</td>
+              <td (click)="select_to_modifierCharge(produit)">{{(produit.quantite*produit.prix_u).toFixed(2)}}</td>
+              <td>
+              <button (click)="deleteCharge(produit)" style="width:50px;height: 50px;" mat-raised-button color="warn">
+                <mat-icon>delete</mat-icon>
+              </button></td>
+              </tr>
+          </tbody>
+        </table>
+        <mat-spinner style="width:20%;margin-left: auto;margin-right: auto;" *ngIf="chargeSppiner" ></mat-spinner> 
+
+    </mat-tab>
+    <!----Dotation--------------------->
+    <mat-tab label="Dotation">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           Ajouter
+          </mat-panel-title>
+          <mat-panel-description>
+           ajoute des dotations
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="search-div">
+         
+          <!----dotation form---->
+          <form  #dotationForm="ngForm" >
+  
+              <mat-form-field appearance="outline">
+                  <mat-label>Designation</mat-label>
+                  <input  name="designation" ngModel matInput placeholder="soudage" required >
+              </mat-form-field>
+              
+                <mat-form-field appearance="outline">
+                  <mat-label>selectione une unite</mat-label>
+                  <select matNativeControl required   name="unite" ngModel  required>
+                    <option *ngFor="let unite of unites" [ngValue]="unite.unite">{{unite.unite}}</option>
+                  </select>
+                  <span matSuffix> 
+                    <button (click)="onAddUnite()"  mat-raised-button color="primary" >
+                      <mat-icon>add</mat-icon>
+                    </button></span>
+                </mat-form-field>
+
+               
+                <mat-form-field appearance="outline" >
+                  <mat-label>quantite initial</mat-label>
+                  <input ngModel name="quantite_initial" ngModel matInput placeholder="2" required >
+                </mat-form-field>
+
+                <button (click)="onAddDotation(dotationForm)"  mat-raised-button color="primary" >add</button>
+          </form>
+      </div>
+        <!-------------fin form-->
+         </mat-expansion-panel>
+         <div style = "width : 100%" >
+          <h1 style="text-align: center;">Dotation du projet</h1>
+         </div>
+         <!--------table des dotaion --------------------->
+         <table class="table text-center">
+          <thead class="thead-dark">
+            <tr>
+              <th class="text-center" scope="col">#</th>
+              <th class="text-center" scope="col">Designation</th>
+              <th class="text-center" scope="col">unite</th>
+              <th class="text-center" scope="col">Qt-initial</th>
+              <th class="text-center" scope="col">QT-final</th>
+              
+              <th class="text-center" scope="col">option</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let produit of mesDotation;index as i;" >
+              <th  scope="row">{{i+1}}</th>
+              <td >{{produit?.designation}} </td>
+              <td >{{produit?.unite}}</td>
+              <td >{{produit?.quantite_initial}}</td>
+              <td >{{produit?.quantite_final}}</td>
+              <td>
+              <button (click)="deleteDotation(produit)" style="width:50px;height: 50px;" mat-raised-button color="warn">
+                <mat-icon>delete</mat-icon>
+              </button></td>
+              </tr>
+          </tbody>
+        </table>
+        <mat-spinner style="width:20%;margin-left: auto;margin-right: auto;" *ngIf="dotationSpiner" ></mat-spinner> 
+        
+         </mat-tab>
+
+        <!---------REintegration------->
+    <mat-tab label="Reintegration">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+               Ajouter
+              </mat-panel-title>
+              <mat-panel-description>
+               ajoute des reintegration
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="search-div">
+             
+              <!----dotation form---->
+              <form  #reintegrationForm="ngForm" >
+      
+                  <mat-form-field appearance="outline">
+                      <mat-label>Designation</mat-label>
+                      <input  name="designation" ngModel matInput placeholder="soudage" required >
+                  </mat-form-field>
+                  
+                    <mat-form-field appearance="outline">
+                      <mat-label>selectione une unite</mat-label>
+                      <select matNativeControl required   name="unite" ngModel  required>
+                        <option *ngFor="let unite of unites" [ngValue]="unite.unite">{{unite.unite}}</option>
+                      </select>
+                      <span matSuffix> 
+                        <button (click)="onAddUnite()"  mat-raised-button color="primary" >
+                          <mat-icon>add</mat-icon>
+                        </button></span>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" >
+                      <mat-label>quantite livre</mat-label>
+                      <input ngModel name="qt_demende" ngModel matInput placeholder="2" required >
+                    </mat-form-field>
+                   
+                    <mat-form-field appearance="outline" >
+                      <mat-label>quantite livre</mat-label>
+                      <input ngModel name="qt_livre" ngModel matInput placeholder="2" required >
+                    </mat-form-field>
+    
+                    <button (click)="onAddReintegration(reintegrationForm)"  mat-raised-button color="primary" >add</button>
+              </form>
+          </div>
+            <!-------------fin form-->
+             </mat-expansion-panel>
+             <div style = "width : 100%" >
+              <h1 style="text-align: center;">Reientegration </h1>
+             </div>
+             <!--------table des Reintegration --------------------->
+             <table class="table text-center">
+              <thead class="thead-dark">
+                <tr>
+                  <th class="text-center" scope="col">#</th>
+                  <th class="text-center" scope="col">Designation</th>
+                  <th class="text-center" scope="col">unite</th>
+                  <th class="text-center" scope="col">Qt-demande</th>
+                  <th class="text-center" scope="col">QT-livre</th>
+                  
+                  <th class="text-center" scope="col">option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let produit of mesReintegration;index as i;" >
+                  <th  scope="row">{{i+1}}</th>
+                  <td >{{produit?.designation}} </td>
+                  <td >{{produit?.unite}}</td>
+                  <td >{{produit?.qt_demende}}</td>
+                  <td >{{produit?.qt_livre}}</td>
+                  <td>
+                  <button (click)="deleteReintegration(produit)" style="width:50px;height: 50px;" mat-raised-button color="warn">
+                    <mat-icon>delete</mat-icon>
+                  </button></td>
+                  </tr>
+              </tbody>
+            </table>
+            <mat-spinner style="width:20%;margin-left: auto;margin-right: auto;" *ngIf="reintegrationSpiner" ></mat-spinner> 
+            
+             </mat-tab>
+</mat-tab-group>
+</div>

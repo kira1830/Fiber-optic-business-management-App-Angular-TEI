@@ -1,0 +1,84 @@
+<mat-form-field>
+    <mat-label>Cherche une tache</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+  </mat-form-field>
+
+  
+  <div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z8 table table-bordered">
+  
+    <!-- nom societe -->
+    <ng-container matColumnDef="designation">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> societe </th>
+      <td  mat-cell *matCellDef="let element">{{element.designation}}</td>
+    </ng-container>
+  
+    <!-- Name N_Rx -->
+    <ng-container matColumnDef="unite">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> unite </th>
+      <td mat-cell *matCellDef="let element"> {{element.unite}} </td>
+    </ng-container>
+  
+    
+      <!-- Symbol adress -->
+      <ng-container matColumnDef="prix_u">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> prix_u </th>
+        <td mat-cell *matCellDef="let element" > {{element.prix_u}} </td>
+      </ng-container>
+
+    <!-- tel  -->
+    <ng-container matColumnDef="chapitre" class="title">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> chapitre </th>
+        <td mat-cell *matCellDef="let element"  > 
+          <p *ngIf="element.chapitre && element.chapitre != '' "> {{element.chapitre}}</p>
+          <p *ngIf="!element.chapitre || element.chapitre === '' ">No chapter</p>
+          </td>
+      </ng-container>
+
+      <!-- fax -->
+    <ng-container matColumnDef="type" class="title">
+      
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> type </th>
+        <td mat-cell *matCellDef="let element" > 
+          <p *ngIf="element.type && element.type != '' "> {{element.type}}</p>
+          <p *ngIf="!element.type || element.type === '' ">No type </p>
+           </td>
+      </ng-container>
+      
+      
+      
+    <ng-container matColumnDef="date-version" class="title">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> date-version </th>
+      <td mat-cell *matCellDef="let element" > {{element.date_creation}} </td>
+    </ng-container>
+    
+      <ng-container matColumnDef="option">
+        <th mat-header-cell *matHeaderCellDef > Option </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button class="btn-option" mat-fab color="warn" (click)="deleteTach(element.id)" aria-label="Example icon button with a delete icon">
+                <mat-icon>delete</mat-icon>
+              </button>  
+            
+              <button class="btn-option" mat-fab color="primary" (click)="onSelectTach(element)" aria-label="Example icon button with a delete icon">
+                <mat-icon>open_in_new</mat-icon>
+              </button>
+
+              <button class="btn-option" *ngIf="mode" mat-raised-button color="accent" (click)="onDuplicate(element)" aria-label="Example icon button with a delete icon">
+               new version
+              </button>
+        </td>
+      </ng-container>
+  
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-spinner *ngIf="showProgress" style="width: 20%; margin-left:auto ;margin-right: auto;"></mat-spinner>
+  
+  <mat-paginator #paginator
+      [length]="dataSource?.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[10,25, 50, 100, 250]">
+  </mat-paginator>
+</div>

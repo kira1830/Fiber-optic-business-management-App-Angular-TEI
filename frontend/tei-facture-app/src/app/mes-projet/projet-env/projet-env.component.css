@@ -1,0 +1,48 @@
+header{
+    width: 100%;
+}
+
+.card-img{
+    padding: 16px;
+    width: 100%;
+}
+mat-form-field{
+    width: 100%;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+  }
+  
+.title{
+    text-align: center;
+}
+.title-card{
+    display: block;
+    width: 80%;
+    float: left;
+}
+
+.example-margin {
+    margin: 0 10px;
+  }
+.detail-card{
+    position: absolute;
+    right: 0 ;
+    display: block;
+    width: 20%;
+}
+.product-tab{
+    clear: both;
+    width: 80%;
+}
+
+tr:hover {
+    background-color: red;
+}
+
+
+.example-margin {
+    margin: 0 10px;
+  }
+  

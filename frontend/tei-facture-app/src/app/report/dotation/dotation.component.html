@@ -1,0 +1,140 @@
+
+<div style="text-align: center;  position: -webkit-sticky; position: sticky;top: 0;right: 80%;">
+  <button  [routerLink]="[ '/MesProjet/projet',projet.id_projet]" class="no-print option" mat-raised-button>
+    <img style="height: 50px; border-radius: 10px;"  src="../../../../assets/menu_icone/exit.png" alt="exit"> 
+     back
+  </button>
+
+ 
+    <button  class="no-print option" (click)='onPrint()' mat-raised-button>
+      <img style="height: 50px; border-radius: 10px;"  src="../../../../assets/print.png" alt="print"> 
+       Imprime
+    </button>
+    
+        
+</div>
+
+
+    <mat-spinner *ngIf="showProgress"style="width: 20%; margin-right: auto;margin-left:auto ;"></mat-spinner>
+  <table id="container" class="table" >
+    <thead><tr><td>
+      <div class="header-space">
+        
+  <div class="header row">
+    <div class="col-sm-6">
+      <img  class="logo" src="../../../assets/logo.png" alt="logo tei" width="250px">
+    </div>
+  
+    <div class="col-sm-6">
+      <p  class="myInfo">
+        Siege social : {{mesInfo. Siege_social}} <br>
+        RC: {{mesInfo.RC}} <br>
+        NIF:{{mesInfo.Nif}}<br>
+        NIS:{{mesInfo.Nis}}<br>
+        AI:{{mesInfo.AI}}<br>
+        Do.bancaire:{{mesInfo.DO_BANCAIRE}}<br>
+        Capital social : {{mesInfo.capital_social}} DA<br>
+        Tel/Fax:(+213) {{mesInfo.tel}}/(+213) {{mesInfo.fax}}<br>
+        Email: {{mesInfo.email}}
+    
+      </p>
+      
+    </div>
+   
+  </div>
+      </div>
+    </td></tr></thead>
+    <tbody><tr><td>
+  <!----Content-->
+      <div class="content">
+          <div class="destinataire">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Distinataire</th>
+                  <th scope="col" style="text-align: center;"><p>Dotation</p> </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th rowspan="8" scope="row">
+                    <p >
+                      <span> Nom de societe : {{client.Nom_societe}} <br></span>
+
+                      <span *ngIf="client.adresse !='' && client.adresse "> Siege social : {{client.adresse}} <br></span>
+                      <span *ngIf="client.N_RC !='' && client.N_RC"> RC: {{client.N_RC}}<br></span>
+                      <span *ngIf="client.Nif !='' && client.Nif"> NIF:{{client.Nif}}<br></span>
+                      <span *ngIf="client.Nis !='' && client.Nis"> NIS:{{client.Nis}}<br></span>
+                      <span *ngIf="client.AI !='' && client.AI"> AI:{{client.AI}}<br></span>
+                      <span *ngIf="client.do_bancaire !='' && client.do_bancaire">Do.bancaire:{{client.do_bancaire}}<br></span>
+                      <span *ngIf="client.tel !='' && client.tel">Tel/Fax:(+213) {{client.tel}}/{{client.fax}}<br></span>
+                      <span *ngIf="client.email !='' && client.email">Email:{{client.email}}</span>
+                     
+                     
+                     
+                     
+                      
+                      
+                    </p>
+                  </th >
+                  <td rowspan="1" ><p>
+                    <span class="center"  *ngIf="projet.N_ODS ">ODS N°: {{projet.N_ODS}} du : {{projet.Date_ODS}}</span><br>
+                     <span class="center "> BC N°: {{projet.N_BNC}} du : {{projet.Date_debut}} </span>
+                  </p>  </td>
+                </tr>
+          
+                <tr>
+                  <td  rowspan="7" >
+                    <p>
+                      <span class="center "><strong> {{projet.Designation}} </strong> </span>
+                      <span style="text-align:justify;padding-left: 16px;">Adresse : <br><span class="center">{{projet.adress}}</span> </span>
+                    </p>
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+          
+          </div>
+      
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Article</th>
+                <th scope="col">Designation</th>
+                <th scope="col">Unite</th>
+                <th scope="col">Quantite</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mesDotation;index as i ">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.designation}}</td>
+                <td>{{item.unite}}</td>
+                <td>{{item.quantite_initial}}</td>
+              </tr>
+            
+            </tbody>
+          </table>
+      
+          <div style="margin:10% 0 ;width: 100%;">
+            <span class="signature center" style="text-align: right;padding-right:150px ;">Signature: </span>
+
+          </div>
+      </div>
+  <!----End Content-->
+    </td></tr></tbody>
+    <tfoot><tr><td class="borderless">
+      <div class="footer-space">&nbsp;</div>
+    </td ></tr></tfoot>
+  </table>
+  
+  
+  
+  <div  class="footer">
+   
+  </div>
+  
+  
+  
+  

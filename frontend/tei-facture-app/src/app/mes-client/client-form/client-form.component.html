@@ -1,0 +1,101 @@
+<mat-toolbar>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+  </mat-toolbar>
+
+  <form matDialogContent #clientForm="ngForm">
+    <mat-card>
+      <!---nom de societe -->
+      <mat-form-field appearance="outline" >
+        <mat-label>Nom de societe</mat-label>
+        <input ngModel name="nom_societe" matInput type="text" placeholder="nom de societe" required>
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+   <!---nom de adress -->
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <textarea ngModel name="adress" matInput placeholder="Ex. 100 Main St" required></textarea>
+    </mat-form-field>
+   <!---nom de tel -->
+ 
+      <mat-form-field appearance="outline">
+        <mat-label>Telephone</mat-label>
+        <span matPrefix>+213 &nbsp;</span>
+        <input ngModel name="tel" type="tel" matInput placeholder="0669 52 24 96" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+    
+   <!---nom de fax -->
+   <mat-form-field appearance="outline">
+    <mat-label>FAX</mat-label>
+      <span matPrefix>+ &nbsp;</span>
+      <input ngModel name="fax" type="tel" matInput placeholder="025219260" required>
+      <mat-icon matSuffix>mode_edit</mat-icon>
+  </mat-form-field>
+<!---Email +--------------------->
+
+<!---Detail +--------------------->
+  <section >
+    <mat-icon matPrefix>mode_edit</mat-icon>
+    <mat-checkbox checked="false" (change)="isChecked(ch.checked)" #ch>Plus de detail</mat-checkbox>
+  
+    <mat-card [hidden]="moreDetail">
+    
+      <mat-form-field appearance="outline" >
+        <mat-label>Email</mat-label>
+        <input ngModel name="email" matInput type="text" placeholder="a@a.com" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>Do.Bancaire</mat-label>
+        <input ngModel name="do_bancaire" matInput type="text" placeholder="Do.bancaire" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>AI</mat-label>
+        <input ngModel name="AI" matInput type="text" placeholder="AI" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" >
+        <mat-label>capital social</mat-label>
+        <input ngModel name="capital_social" matInput type="text" placeholder="capital social" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+
+      <!---nif -->
+      <mat-form-field appearance="outline" >
+        <mat-label>Nif</mat-label>
+        <input ngModel name="nif" matInput type="text" placeholder="Nif" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+       <!---nis -->
+       <mat-form-field appearance="outline" >
+        <mat-label>Nis</mat-label>
+        <input ngModel name="nis" matInput type="text" placeholder="Nis" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+       <!---MF -->
+       <mat-form-field appearance="outline" >
+        <mat-label>MF</mat-label>
+        <input ngModel name="mf" matInput type="text" placeholder="MF" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+       <!---NRC -->
+       <mat-form-field appearance="outline" >
+        <mat-label>N°RC</mat-label>
+        <input ngModel name="nrc" matInput type="text" placeholder="N° Registre" >
+        <mat-icon matSuffix>add</mat-icon>
+      </mat-form-field>
+    </mat-card>
+
+
+  </section>
+
+      <div class="form-option-btn">
+        <button (click)="OnCreateClient(clientForm)" mat-raised-button color="primary">Create</button>
+    </div>
+    </mat-card>
+     
+  </form>

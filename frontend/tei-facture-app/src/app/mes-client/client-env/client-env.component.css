@@ -1,0 +1,23 @@
+.detaill-card{
+  width:30%;
+  position: absolute;
+  right: 0;
+}
+mat-form-field{
+  display: block;
+  width: 100%;
+}
+.main-card{
+width: 70%;
+}
+table{
+  margin: 0;
+  padding: 0;
+}
+mat-card-content{
+  margin-top: 50px;
+}
+tr:hover{
+  background-color: gray;
+  color:black;
+}

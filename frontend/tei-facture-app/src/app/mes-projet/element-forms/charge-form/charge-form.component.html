@@ -1,0 +1,31 @@
+<mat-toolbar>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
+  </mat-toolbar>
+
+ <form  #tachForm="ngForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Designation</mat-label>
+        <input  name="designation" [(ngModel)]="selectedTach.designation" matInput placeholder="soudage" required >
+    </mat-form-field>
+    
+
+    
+    <mat-form-field appearance="outline">
+      <mat-label>selectione une unite</mat-label>
+      <select matNativeControl required    [(ngModel)]="selectedTach.unite" name="unite" >
+        <option *ngFor="let unite of unites" [ngValue]="unite.unite">{{unite.unite}}</option>
+      </select>
+    </mat-form-field>
+
+   
+
+      <mat-form-field appearance="outline">
+        <mat-label>prix unitair</mat-label>
+        <input ngModel name="prix_u" [(ngModel)]="selectedTach.prix_u" matInput type="number" required>
+        <span matPrefix>DZA&nbsp;</span>
+        <span matSuffix>.00</span>
+      </mat-form-field>
+     
+
+      <button (click)="onUpdate(tachForm)" mat-raised-button color="primary">update charge</button>
+</form>

@@ -1,0 +1,10 @@
+<mat-form-field appearance="outline" >
+    <mat-label>Unite</mat-label>
+    <input ngModel name="unite" #data ngModel matInput placeholder="U" required >
+  </mat-form-field>
+
+  
+  <div mat-dialog-actions class="center">
+    <button mat-button [mat-dialog-close]="false" >Cancel</button>
+    <button (click)="onAddUnite(data.value)" mat-raised-button color="primary" >add</button>
+  </div>

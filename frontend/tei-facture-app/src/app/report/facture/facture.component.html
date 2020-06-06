@@ -1,0 +1,183 @@
+
+
+<div style="margin: 16px;"  class="no-print">
+  <mat-checkbox  [(ngModel)]="hideUpdate" style="display: block;">update facture</mat-checkbox>
+  <form *ngIf="hideUpdate" #factureFrom="ngForm">
+    <mat-form-field style="display: block;width: 20%;" >
+      <mat-label>Date defacture</mat-label>
+      <input name="date_facture"  matInput placeholder="date de la  facture" #date_update [(ngModel)]="facture.date_facture" required>
+    </mat-form-field>
+    <mat-form-field style="display: block;width: 20%;" >
+      <mat-label>num_facture</mat-label>
+      <input name ="n_facture"  type="number" matInput placeholder="n° facture" #n_facture [(ngModel)]="facture.n_facture" required>
+    </mat-form-field>
+    <div class="form-group no-print" style="width:200px;margin: 16px 0;">
+      <label for="">selectione mode payement </label>
+      <select  [ngModel]="facture.mode_payement" class="form-control" name="mode_payement" >
+        <option value="0">Espece</option>
+        <option value="1">Virement</option>
+        <option value="2" >Cheque</option>
+      </select>
+    </div>
+
+    <button *ngIf="date_update.value!='' && n_facture.value " mat-raised-button color="primary" (click)="updateFacture(factureFrom)">update</button>    
+  </form>
+
+</div>
+
+
+<div style="text-align: center;  position: -webkit-sticky; position: sticky;top: 0;right: 80%;">
+  <button  [routerLink]="[ '/MesProjet/projet',projet.id_projet]" class="no-print option" mat-raised-button>
+    <img style="height: 50px; border-radius: 10px;"  src="../../../../assets/menu_icone/exit.png" alt="exit"> 
+     back
+  </button>
+
+ 
+    <button  class="no-print option" (click)='onPrint()' mat-raised-button>
+      <img style="height: 50px; border-radius: 10px;"  src="../../../../assets/print.png" alt="print"> 
+       Imprime
+    </button>
+    
+        
+</div>
+
+
+  <mat-spinner *ngIf="showProgress"style="width: 20%; margin-right: auto;margin-left:auto ;"></mat-spinner>
+<table id="container" class="table" >
+  <thead><tr><td>
+    <div class="header-space">
+      
+<div class="header row">
+  <div class="col-sm-6">
+    <img  class="logo" src="../../../assets/logo.png" alt="logo tei" width="250px">
+  </div>
+
+  <div class="col-sm-6">
+    <p  class="myInfo">
+      Siege social : {{mesInfo. Siege_social}} <br>
+      RC: {{mesInfo.RC}} <br>
+      NIF:{{mesInfo.Nif}}<br>
+      NIS:{{mesInfo.Nis}}<br>
+      AI:{{mesInfo.AI}}<br>
+      Do.bancaire:{{mesInfo.DO_BANCAIRE}}<br>
+      Capital social : {{mesInfo.capital_social}} DA<br>
+      Tel/Fax:(+213) {{mesInfo.tel}}/(+213) {{mesInfo.fax}}<br>
+      Email: {{mesInfo.email}}
+  
+    </p>
+    
+  </div>
+ 
+</div>
+    </div>
+  </td></tr></thead>
+  <tbody><tr><td>
+<!----Content-->
+    <div class="content">
+        <div class="destinataire">
+          <table class="table table-bordered data">
+            <thead>
+              <tr>
+                <th scope="col">Distinataire</th>
+                <th scope="col"><p class="center">Facture : 0{{facture.n_facture}}/{{yearFacture}} <br>
+                  du : {{this.facture.date_facture}}</p> </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th rowspan="8" scope="row">
+                  <p >
+                    <span> Nom de societe : {{client.Nom_societe}} <br></span>
+
+                    <span *ngIf="client.adresse !='' && client.adresse "> Siege social : {{client.adresse}} <br></span>
+                    <span *ngIf="client.N_RC !='' && client.N_RC"> RC: {{client.N_RC}}<br></span>
+                    <span *ngIf="client.Nif !='' && client.Nif"> NIF:{{client.Nif}}<br></span>
+                    <span *ngIf="client.Nis !='' && client.Nis"> NIS:{{client.Nis}}<br></span>
+                    <span *ngIf="client.AI !='' && client.AI"> AI:{{client.AI}}<br></span>
+                    <span *ngIf="client.do_bancaire !='' && client.do_bancaire">Do.bancaire:{{client.do_bancaire}}<br></span>
+                    <span *ngIf="client.tel !='' && client.tel">Tel/Fax:(+213) {{client.tel}}/{{client.fax}}<br></span>
+                    <span *ngIf="client.email !='' && client.email">Email:{{client.email}}</span>       
+                  </p>
+                </th >
+                <td rowspan="1" ><p>
+                  <span class="center"  *ngIf="projet.N_ODS  ">ODS N°: {{projet.N_ODS}} du : {{projet.Date_ODS}}</span><br>
+                   <span class="center "> BC N°: {{projet.N_BNC}} du : {{projet.Date_debut}} </span>
+                </p>  </td>
+              </tr>
+        
+              <tr>
+                <td  rowspan="7" >
+                  <p>
+                    <span class="center "><strong> {{projet.Designation}} </strong> </span>
+                    <span style="text-align:justify;padding-left: 16px;">Adresse : <br><span class="center">{{projet.adress}}</span> </span>
+                  </p>
+                </td>
+              </tr>
+             
+            </tbody>
+          </table>
+        
+        </div>
+    
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Article</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Unite</th>
+              <th scope="col">Quantite</th>
+              <th scope="col">Prix u</th>
+              <th scope="col">Totale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mesTach ;index as i;" [ngClass]="{'break': (i+1) % 6 == 0 && mesTach.length %6 !=0 }">
+              <th scope="row">{{item.code}}</th>
+              <td>{{item.designation}}</td>
+              <td>{{item.unite}}</td>
+              <td>{{item.qt_real}}</td>
+              <td>{{item.prix_u}}</td>
+              <td >{{(item.prix_u*item.qt_real).toFixed(2)}} </td>
+            </tr>
+          <tr>
+              <td colspan="5"><p class="center">TOTAL H.T</p></td>
+              <td #totalHT>{{locationsSum().toFixed(2)}}</td>
+            </tr>
+            <tr>
+              <td colspan="5"><p class="center">TVA 19%</p></td>
+              <td>{{(locationsSum()*parametre.tva).toFixed(2)}}</td>
+            </tr>
+            <tr>
+              <td colspan="5"><p class="center">Total T.T.C</p></td>
+              <td>{{(locationsSum()*(1+parametre.tva)).toFixed(2)}}</td>
+            </tr>
+    
+          </tbody>
+        </table>
+    
+        <div style="margin:5% 0 ;width: 100%;">
+          <p>La presente Facture est arretee a la somme de :</p>
+          <p><strong>{{convertDecimalToWord()}}  </strong></p>
+          <p><strong>Modalite de payement : {{ mode}} </strong><br>
+            <span class="signature center" style="text-align: right;padding-right:150px ;">Signature: </span>
+          </p>
+         
+
+         
+        </div>
+    </div>
+<!----End Content-->
+  </td></tr></tbody>
+  <tfoot><tr><td class="borderless">
+    <div class="footer-space">&nbsp;</div>
+  </td></tr></tfoot>
+</table>
+
+
+
+<div  class="footer" style="width: 80%;">
+  <h5 class="page" style=" text-align: right; "> </h5>
+</div>
+
+
+

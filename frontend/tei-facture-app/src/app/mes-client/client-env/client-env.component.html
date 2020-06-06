@@ -1,0 +1,150 @@
+
+<mat-card class="detaill-card">
+    <mat-card-header>
+        <img style="margin-right: auto;margin-left: auto;" src="../../../assets/menu_icone/client.png" alt="client" width="35%">
+    </mat-card-header>
+    <mat-slide-toggle (change)="disableEdit()" [(checked)]="isEdit" >modifie</mat-slide-toggle>
+    <form matDialogContent  #clientForm="ngForm">
+        <mat-card>
+          <!---nom de societe -->
+          <mat-form-field appearance="outline" >
+            <mat-label>Identifiant</mat-label>
+            <input disabled [(value)]="client.id_societe"  matInput type="text" placeholder="Identifiant de Societe" disabled required>
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" >
+            <mat-label>Nom de societe</mat-label>
+            <input [(ngModel)]="client.Nom_societe" name="nom_societe" matInput type="text" placeholder="nom de societe" [disabled]="!isEdit" required>
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+       <!---nom de adress -->
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <textarea [(ngModel)]="client.adresse" name="adresse" matInput placeholder="Ex. 100 Main St" [disabled]="!isEdit" required></textarea>
+        </mat-form-field>
+       <!---nom de tel -->
+     
+          <mat-form-field appearance="outline">
+            <mat-label>Telephone</mat-label>
+            <span matPrefix>+213 &nbsp;</span>
+            <input [(ngModel)]="client.tel" name="tel" type="tel" matInput placeholder="0669 52 24 96" [disabled]="!isEdit" required>
+            <mat-icon matSuffix>mode_edit</mat-icon>
+          </mat-form-field>
+        
+       <!---nom de fax -->
+       <mat-form-field appearance="outline">
+        <mat-label>FAX</mat-label>
+          <span matPrefix>+ &nbsp;</span>
+          <input [(ngModel)]="client.fax" name="fax" type="tel" matInput placeholder="025219260" [disabled]="!isEdit" required>
+          <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+    <!---Email +--------------------->
+    
+    <!---Detail +--------------------->
+      <section >
+        <mat-icon matPrefix>mode_edit</mat-icon>
+        <mat-checkbox checked="false" (change)="isChecked(ch.checked)" #ch>Plus de detail</mat-checkbox>
+      
+        <mat-card [hidden]="moreDetail">
+
+
+        
+    
+          <mat-form-field appearance="outline" >
+            <mat-label>Email</mat-label>
+            <input  [(ngModel)]="client.email"  [disabled]="!isEdit"  name="email"  matInput type="text"  placeholder="Ex. pat@example.com" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" >
+            <mat-label>Do.Bancaire</mat-label>
+            <input ngModel name="do_bancaire" [(ngModel)]="client.do_bancaire" matInput type="text" [disabled]="!isEdit" placeholder="Do.bancaire" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" >
+            <mat-label>AI</mat-label>
+            <input ngModel name="AI" matInput type="text" [(ngModel)]="client.AI"  [disabled]="!isEdit" placeholder="AI" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" >
+            <mat-label>capital social</mat-label>
+            <input ngModel name="capital_social" [(ngModel)]="client.capital_social" matInput type="text" [disabled]="!isEdit" placeholder="capital social" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+
+          <!---nif -->
+          <mat-form-field appearance="outline" >
+            <mat-label>Nif</mat-label>
+            <input [(ngModel)]="client.Nif" name="Nif" matInput type="text" [disabled]="!isEdit" placeholder="Nif" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+           <!---nis -->
+           <mat-form-field appearance="outline" >
+            <mat-label>Nis</mat-label>
+            <input [(ngModel)]="client.Nis" [disabled]="!isEdit" name="Nis" matInput type="text" placeholder="Nis" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+           <!---MF -->
+           <mat-form-field appearance="outline" >
+            <mat-label>MF</mat-label>
+            <input [(ngModel)]="client.MF" name="MF" [disabled]="!isEdit" matInput type="text" placeholder="MF" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+           <!---NRC -->
+           <mat-form-field appearance="outline" >
+            <mat-label>N°RC</mat-label>
+            <input [(ngModel)]="client.N_RC" [disabled]="!isEdit" name="N_RC" matInput type="text" placeholder="N° Registre" >
+            <mat-icon matSuffix>add</mat-icon>
+          </mat-form-field>
+        </mat-card>
+      </section>
+    
+          <div class="form-option-btn">
+            <button (click)="OnUpdateClient(clientForm)" [disabled]="!isEdit" mat-raised-button color="primary">update</button>
+        </div>
+        </mat-card>
+         
+      </form>
+</mat-card>
+
+<mat-card class="main-card">
+    <mat-card-header>
+      <a style="position:absolute;left: 0;" mat-raised-button  [routerLink]="[ '/MesClient']">
+        <img style="height: 50px; border-radius: 10px;"  src="../../../../assets/menu_icone/exit.png" alt="exit"> 
+        </a>
+       <h3 style="text-align: center; width: 100%;">{{client.Nom_societe}}</h3>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div style="width: 100%; background-color: gray; margin: 0;padding: 0;">
+            <h6 style="text-align: center; color: white;">Projet deja travaille avec </h6>
+        </div>
+        <table class="table ">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Projet</th>
+                <th scope="col">date debut</th>
+                <th scope="col">date fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listProjet;index as i;">
+                <th scope="row">{{i+1}}</th>
+                <td><a [routerLink]="[ '/MesProjet/projet', item.id_projet ]">{{item.Designation}}</a></td>
+                <td>{{item.Date_debut}}</td>
+                <td>
+                    <div *ngIf="item.Date_fin !='' && item.Date_fin; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>{{item.Date_fin}}</ng-template>
+                    <ng-template #elseBlock><span style="background-color: red; color: white;">pas encore</span>  </ng-template>
+                                </td>
+              </tr>
+        
+            </tbody>
+          </table>
+    </mat-card-content>
+</mat-card>
+  

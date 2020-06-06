@@ -1,0 +1,64 @@
+.sidenav-container {
+  height: 100%;
+  overflow: visible !important;
+}
+
+.sidenav {
+  width: 200px;
+  color: antiquewhite;
+  background-color: #F8C52A;
+  border-radius: 10px;
+}
+
+
+.mainToolBar{
+  height: 100px;
+  background-color: #0597DF;
+}
+.menueToolbar{
+  border-radius: 10%;
+  height: 100px;
+  background-color: #EF7E0D;
+}
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.items{
+  margin: 16px 0 ;
+}
+
+.menu-icone{
+  margin-right: 5px;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+
+
+@media print{
+  .no-print {
+    display: none !important;
+  }
+  mat-sidenav-content {
+      margin:1cm;
+     overflow: visible !important;;
+     }
+}
+
+mat-sidenav-content{
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
